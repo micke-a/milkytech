@@ -1,0 +1,29 @@
+model(name:"Lots Of Inputs", version:"1.0") {
+    inputs{
+        strInput(type:String)
+        textInput(type:String, 
+                widget:'textarea',
+                mandatory:{allInp ->
+                    allInp?.strInp?.empty()
+                })
+        intInput(type:Integer,
+                range:1..5, 
+                validator:{allInp, value-> 
+                    if(allInp.strInput == 'A') 
+                        value ==3
+                    else
+                        true
+                })
+        decimalInput(type:BigDecimal)
+    }
+    
+    /**
+     * Variables
+     */
+    output(name:'theModelOutput'){
+        dependsOn('strInput','intInput')
+        evaluate{
+            strInput + intInput
+        }
+    }
+}

@@ -1,0 +1,23 @@
+
+<div class="alert alert-danger" ng-repeat="err in results.errors">{{err}}</div>
+
+<table class="table">
+    <thead>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Value</th>
+    </thead>
+    <tbody>
+    
+        <tr ng-repeat="(key, value) in results.outputs">
+            <td>Output</td>
+            <td>{{key}}</td>
+            <td>{{value}}</td>
+        </tr>
+        <tr ng-repeat="(key, value) in results.intermediate">
+            <td>Intermediate</td>
+            <td>{{key}}</td>
+            <td>{{value}}</td>
+        </tr>
+    </tbody>
+</table>

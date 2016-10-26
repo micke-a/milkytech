@@ -1,0 +1,11 @@
+
+{
+    "model":{
+        "file":"src/test/resources/com/milkytech/engine2/CalculationOne.model"
+    },
+    "inputs":{
+        "income":1000,
+        "expenses": 800
+    }
+
+}

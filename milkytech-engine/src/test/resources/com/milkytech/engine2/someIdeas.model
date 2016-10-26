@@ -1,0 +1,61 @@
+variableGroup("Group One") {
+    require(['income', 'expenses'])
+    
+    output("nett income"){
+        
+        
+        evaluate{
+            nett_income = income - expenses
+        }
+    }
+    
+    output("nett income") << {
+        nett_income = income - expenses
+    }
+    output("nett income") {
+        evaluate{
+            nett_income = income - expenses
+        }
+    }
+    
+    output("incomeTest") {
+        dependsOn("nett income")
+        evaluate{
+            if(nett_income < 400.00){
+                 'passed'
+            }
+            else{
+                'failed'
+            }
+        }
+    }
+
+    output("incomeTest2") {
+        dependsOn('nett income')
+        /*
+        produces{
+            incomeTest2  boolean
+            yello  String
+        }*/
+        
+        evaluate {
+            yello = "hello"
+            nett_income < 400.00
+        }
+    }
+
+    /*
+    output("nett income3") {
+        if (modelContext.nett_income > 400) {
+            modelContext.incomeTest3 = 'rich bugger'
+        } else {
+            modelContext.incomeTest3 = 'poor bugger'
+        }
+    }
+    */
+    
+    test(income: 900, expenses: 501) {
+        incomeTest 'passed'
+        nett_income 399
+    }
+}

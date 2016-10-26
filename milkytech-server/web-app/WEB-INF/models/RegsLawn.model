@@ -1,0 +1,30 @@
+
+
+final int DEFAULT_M2_PER_HOUR = 100
+final int DEFAULT_COST_PER_HOUR = 8
+
+model(name:"Reg's Lawn", version:"1.0") {
+    inputs{
+        width(type:BigDecimal)
+        length(type:BigDecimal)
+    }
+    /**
+     * Functions
+     */
+    function(name:"area"){ arg1, arg2 ->
+        arg1*arg2
+    }
+    
+    /**
+     * Variables
+     */
+    output(name:'costToBribeKidsToMowLawn'){
+        dependsOn('width','length')
+        evaluate{
+            m2PerHour = hasInput('m2PerHour') ? m2PerHour : DEFAULT_M2_PER_HOUR
+            costPerHour = hasInput('cost') ? cost : DEFAULT_COST_PER_HOUR
+            
+            area(width, length)/m2PerHour*costPerHour
+        }
+    }
+}

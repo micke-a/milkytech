@@ -1,0 +1,120 @@
+
+
+final String GOOD_FINANCE_MSG = 'I believe in the Golden Rule - The Man with the Gold... rules.'
+final String BAD_FINANCE_MSG = 'Shut up, fool! You broke!'
+final String THE_DATASET = "dataSetName"
+
+model(name:"Mr T Model", version:"1.0") {
+    inputs {
+        income()
+        expenses()
+    }
+    
+    /**
+     * Functions
+     */
+    function(name:"foolCheck"){ arg1, arg2 ->
+        arg1+arg2
+    }
+    
+    function(name:"jibberJabber"){ arg1, arg2 ->
+        arg1*arg2
+    }
+    
+    
+    /**
+     * Variables
+     */
+    output(name:'usingFunctions'){
+        evaluate{
+            (foolCheck(5,5)*Math.sqrt(jibberJabber(5,5)))/2
+            
+        }
+    }
+    
+    output(name:'usingFunctions2'){
+        evaluate{
+            def v1=foolCheck(5,5)
+            def v2=jibberJabber(5,5)
+            (v1*Math.sqrt(v2) )/2
+            
+        }
+    }
+    
+    output(name:"nettIncomeUSD") {
+        dependsOn("nettIncome")
+        evaluate{
+            def fxRate = enumerations.fx_rates.find { it.code == 'usd' }
+            nettIncome*fxRate.rate
+        }
+    }
+    
+    output(name:"nettIncome") {
+        evaluate{
+            income - expenses
+        }
+    }
+    
+    output(name:"usingRefData"){
+        dependsOn("incomeBand")
+        evaluate{
+            refData.lookup(THE_DATASET,'arg1', incomeBand)
+        }
+    }
+    
+    
+    output(name:"incomeTest") {
+        dependsOn("nettIncome")
+        evaluate{
+            if(nett_income < 400.00){
+                 BAD_FINANCE_MSG
+            }
+            else{
+                GOOD_FINANCE_MSG
+            }
+        }
+    }
+    
+    output(name:"incomeBand"){
+        dependsOn("nettIncome")
+        evaluate{
+            rangeLookups.range_test.lookup(nettIncome)
+        }
+    }
+    output(name:"incomeTest2") {
+        dependsOn('nettIncome')
+        evaluate {
+            yello = "hello"
+            nett_income < 400.00
+        }
+    }
+
+    
+    /**
+     * Range lookups
+     */
+    rangeLookup("range_test"){
+        range(max: 10, value:1)
+        range(max: 200, value:2)
+        range(max: 300, value:3)
+        range(max:400, value:4)
+    }
+    
+    /**
+     * Enumerations
+     */
+    enumeration("fx_rates"){
+        value(code:'sek', rate:11)
+        value(code:'gbp', rate:1)
+        value(code:'usd', rate: 1.5)
+        value(code:'eur', rate: 1.3)
+    }
+    
+    /**
+     * Test
+     */
+    test(income: 900, expenses: 501) {
+        incomeTest 'passed'
+        nett_income 399
+    }
+}

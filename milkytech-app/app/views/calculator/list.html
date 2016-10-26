@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="row">
+        <p>This is the calculators view.</p>
+    </div>
+
+    <div class="row">
+        <table class="table table-bordered table-striped">
+           <thead>
+               <th>Name</th>
+               <th>Type</th>
+               <th>SubType</th>
+            <th>Actions</th>
+           </thead>
+           <tbody>
+               <tr ng-repeat="calc in calculators">
+                    <td>
+                      <strong tooltip-placement="left" tooltip="Calculator with id {{calc.id}}">{{calc.name}}</strong>
+                    </td>
+                   <td>{{calc.type }}</td>
+                   <td>{{calc.subType }}</td>
+                   <td>
+                       <a class="btn btn-default" ng-href="#/calculator/playground/{{calc.id}}">Playground</a>
+                       <a class="btn btn-default" ng-href="#/calculator/inputs/{{calc.id}}">Default Inputs</a>
+                   </td>
+                </tr>
+                <tr ng-repeat="cv in calc.views">
+                    <td colspan="2">&nbsp;</td>
+                    
+                    <td>View ({{cv.type }}): {{cv.name }}</td>
+                    <td>
+                        <a class="btn btn-default" ng-href="#/calc-view/manage/{{cv.id}}">Manage</a>
+                        <a class="btn btn-default" ng-href="#/calc-view/delete/{{cv.id}}">Remove</a>
+                        
+                    </td>
+                </tr>
+           </tbody>
+       </table>
+    </div>
+</div>

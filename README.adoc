@@ -1,0 +1,6 @@
+
+== Groovy DSL Trials
+
+Some old code related to experimentation with Groovy DSL, specificaly a calculation model DSL.
+
+Putting this in GitHub so I don't loose it.

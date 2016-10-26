@@ -1,0 +1,25 @@
+apply plugin: 'eclipse'
+apply plugin: 'groovy'
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group='com.milkytech'
+archivesBaseName='milkytech-engine'
+version='1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    //flatDir { dirs 'libs' }
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.3.6'
+    testCompile 'junit:junit:4.11'
+}
+
+
+task copyToLibs(type: Copy) {
+    into "libs"
+    from configurations.testCompile
+}

@@ -1,0 +1,68 @@
+<div class="row">
+    <span class="col-md-2">
+        <a class="btn btn-default" ng-href="#/calculator/list">
+            <span class="glyphicon glyphicon-chevron-left"></span>Back
+        </a>
+    </span>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+         <label for="calcId">Calc ID</label> {{calcId}} <br/>
+         <label for="name">Name</label> <input type="text" name="name" ng-model="calculator.name"/> 
+         <label for="type"> Type</label> <input type="text" name="type" ng-model="calculator.type"/> 
+         <label for="subType"> SubType</label> <input type="text" name="subType" ng-model="calculator.subType"/> 
+         
+         <br/>
+
+     </div>
+</div>
+
+<div class="row">
+     <div class="col-md-8"> 
+        <label for="model">Model</label>
+                      
+        <div style="height:400px;width:100%;" ui-ace="{
+          useWrapMode : true,
+          showGutter: true,
+          mode: 'groovy'
+        }" ng-model="modelText"></div>
+         
+         <hr/>
+         <label for="model">Presentation</label> {{view.name }} ({{view.markupType.name }})
+         <div style="height:400px;width:100%;" ui-ace="{
+           useWrapMode : true,
+           showGutter: true,
+           mode: 'html'
+         }" ng-model="view.markup"></div>
+      </div>
+      
+    <div class="col-md-4">
+        <label for="inputs">Inputs</label>
+         <div style="height:400px;width:100%;" ui-ace="{
+            useWrapMode : true,
+            showGutter: true,
+            mode: 'json'
+          }" ng-model="inputsText"></div>
+
+    </div>
+</div>
+<div class="row">
+   <div class="col-md-12">
+        <hr/>
+       <button class="btn btn-default" ng-click="calculate()">Calculate</button>
+       <span ng-if="calcId != null">
+            <button class="btn btn-default" ng-click="saveModel()">Save Model</button>
+       </span>
+       <button class="btn btn-default" ng-click="saveAsNewModel()">Create As New Model</button>
+       
+        <a class="btn btn-default" ng-href="#/calculator/inputs/{{calcId}}">Meta Data Inputs View</a>
+   </div>
+</div>
+
+<div class="row">
+   <div class="col-md-12">
+        <hr/>
+       <div id="calcOutput"> </div>
+   </div>
+</div>
